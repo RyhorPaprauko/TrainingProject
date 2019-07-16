@@ -1,6 +1,7 @@
 package by.itacademy.database.entity;
 
 import by.itacademy.database.entity.enam.Genre;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,19 +57,21 @@ public class Book implements BaseEntity {
     private Integer price;
 
     @ToString.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_author", schema = "bookstore_storage",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "booking_book", schema = "bookstore_storage",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "booking_id"))
     private List<Booking> bookings = new ArrayList<>();
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
