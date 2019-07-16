@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog</title>
+    <script src="/resources/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<div class="filter">
+    <input id="book-name" placeholder="Name">
+    <select id="genre">
+        <option selected value="">All Genres</option>
+        <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+    </select>
+    <input id="price" placeholder="Max Price $">
+    <button onclick="getCatalog()">Find</button>
+    <span class="show">
+                <a>Show:</a>
+                <select id="limit" onchange="getCatalog()">
+                    <option value="10">10</option>
+                    <option selected value="20">20</option>
+                </select>
+                </span>
+</div>
+
+<div id="book-container">
+
+
+</div>
+
+</body>
+</html>
