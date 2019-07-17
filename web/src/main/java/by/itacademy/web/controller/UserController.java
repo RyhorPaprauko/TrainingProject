@@ -1,8 +1,7 @@
 package by.itacademy.web.controller;
 
-import by.itacademy.database.dto.FilterDto;
-import by.itacademy.database.entity.Book;
-import by.itacademy.service.service.BookService;
+import by.itacademy.database.entity.User;
+import by.itacademy.service.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,46 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static by.itacademy.web.path.UrlPath.BOOK;
+import static by.itacademy.web.path.UrlPath.ADMIN;
+import static by.itacademy.web.path.UrlPath.USER;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 @RestController
-@RequestMapping(BOOK)
+@RequestMapping(USER)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class BookController {
+public class UserController {
 
-    private BookService bookService;
+    private UserService userService;
 
     @GetMapping(produces = APPLICATION_JSON_UTF8_VALUE)
-    public Iterable<Book> getAllBooks() {
-        return bookService.getAll();
-    }
-
-    @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-    public Iterable<Book> getAllFilteredBooks(@RequestBody FilterDto filter) {
-        return bookService.getAllFiltered(filter);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Iterable<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Book saveNewBook(@RequestBody Book book) {
-        return bookService.saveBook(book);
+    public User saveNewUser(@RequestBody User user) {
+        return userService.saveUser(user).orElse(null);
     }
 
-    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
-    public Book getBookById(@PathVariable(value = "id") Long id) {
-        return bookService.findById(id).orElse(null);
+    @PostMapping(value = "/{id}", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
+    @PreAuthorize("#id == authentication.principal.id")
+    public User updateUser(@PathVariable(value = "id") Long id, @RequestBody User user) {
+        return userService.updateUser(user);
     }
 
-    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = ADMIN, consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Book updateBook(@PathVariable(value = "id") Long id, @RequestBody Book book) {
-        return bookService.updateBook(book);
+    public User saveNewAdmin(@RequestBody User user) {
+        return userService.saveAdmin(user).orElse(null);
     }
+
 
     @DeleteMapping(value = "/{id}", consumes = APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteBook(@PathVariable(value = "id") Long id) {
-        bookService.delete(id);
+    public void deleteUser(@PathVariable(value = "id") Long id) {
+        userService.deleteUser(id);
     }
 }

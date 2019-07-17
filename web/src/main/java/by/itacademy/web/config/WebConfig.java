@@ -11,6 +11,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import java.util.List;
 
@@ -19,6 +20,18 @@ import java.util.List;
 @ComponentScan("by.itacademy.web")
 @Import(value = {InternationalizationConfig.class, ThymeleafConfig.class})
 public class WebConfig implements WebMvcConfigurer {
+
+    private static final String[] PATH_PATTERNS = {
+            "/images/**",
+            "/css/**",
+            "/js/**"
+    };
+
+    private static final String[] CLASSPATH = {
+            "classpath:/static/images/",
+            "classpath:/static/css/",
+            "classpath:/static/js/"
+    };
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -35,7 +48,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+        registry.addResourceHandler(PATH_PATTERNS)
+                .addResourceLocations(CLASSPATH)
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
     }
 }

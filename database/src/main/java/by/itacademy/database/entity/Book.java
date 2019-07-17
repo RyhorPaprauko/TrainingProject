@@ -73,6 +73,6 @@ public class Book implements BaseEntity {
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 }

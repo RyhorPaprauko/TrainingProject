@@ -1,7 +1,5 @@
 CREATE DATABASE bookstore_repository;
 
-CREATE DATABASE bookstore_repository;
-
 CREATE SCHEMA bookstore_storage;
 
 CREATE TABLE "user"
@@ -74,3 +72,14 @@ CREATE TABLE book_author
     author_id BIGINT NOT NULL REFERENCES author (id),
     PRIMARY KEY (author_id, book_id)
 );
+
+INSERT INTO bookstore_storage.book(id, name, about, img_link, genre, price)
+VALUES (1, 'Besy','XIX century','images/besy.jpg','CLASSIC',20),
+       (2, 'Shveik','I World War','images/shveik.jpg','COMEDY',25);
+
+INSERT INTO bookstore_storage.author(id, name, surname, bio)
+VALUES (1,'Fedor','Dostoevskiy','1821-1881'),
+       (2,'Jaroslav','Hasek','1883-1923');
+
+INSERT INTO bookstore_storage.book_author(book_id, author_id)
+VALUES (1, 1);

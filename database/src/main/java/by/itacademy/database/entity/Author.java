@@ -1,5 +1,6 @@
 package by.itacademy.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class Author implements BaseEntity<Long> {
     private String bio;
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "book_author", schema = "bookstore_storage",
             joinColumns = @JoinColumn(name = "author_id"),

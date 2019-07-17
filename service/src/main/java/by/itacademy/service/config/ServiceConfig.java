@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan("by.itacademy.service.service")
+@ComponentScan({"by.itacademy.service.service", "by.itacademy.service.mapper"})
 @EnableTransactionManagement
 @Import(DatabaseConfig.class)
 public class ServiceConfig {
