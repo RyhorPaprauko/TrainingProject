@@ -1,6 +1,7 @@
 package by.itacademy.service.service;
 
-import by.itacademy.database.dto.FilterDto;
+import by.itacademy.database.dto.CatalogDto;
+import by.itacademy.database.dto.CatalogFilterDto;
 import by.itacademy.database.entity.Book;
 import by.itacademy.database.repository.BookRepository;
 import by.itacademy.service.filter.CatalogExpressionBuilder;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,18 +39,21 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Iterable<Book> getAllFiltered(FilterDto filter) {
+    public CatalogDto getFilteredCatalog(CatalogFilterDto filter) {
         BooleanExpression expression = getFilterExpression(filter);
+        Pageable pageable = PageRequest.of(filter.getPage(), filter.getLimit());
 
-        return bookRepository.findAll(expression,
-                PageRequest.of(filter.getPage(), filter.getLimit()));
+        return CatalogDto.builder()
+                .books(bookRepository.findAll(expression, pageable).getContent())
+                .totalCount(bookRepository.count(expression))
+                .build();
     }
 
     public void delete(Long id) {
         bookRepository.deleteById(id);
     }
 
-    public Book updateBook(Book updatedBook)  {
+    public Book updateBook(Book updatedBook) {
         BeanUtilsBean copier = new NonNullAndEmptyBeanUtilsBean();
 
         Book existedBook = bookRepository.getOne(updatedBook.getId());
@@ -62,7 +67,7 @@ public class BookService {
         return bookRepository.save(existedBook);
     }
 
-    private BooleanExpression getFilterExpression(FilterDto filter) {
+    private BooleanExpression getFilterExpression(CatalogFilterDto filter) {
         CatalogExpressionBuilder exp = new CatalogExpressionBuilder();
         exp.add(filter.getName(), book.name::containsIgnoreCase);
         exp.add(filter.getGenre(), book.genre::eq);

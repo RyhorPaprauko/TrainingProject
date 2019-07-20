@@ -4,7 +4,7 @@ import by.itacademy.database.entity.enam.Genre;
 import lombok.Data;
 
 @Data
-public class FilterDto {
+public class CatalogFilterDto {
 
     private String name;
     private String genre;
