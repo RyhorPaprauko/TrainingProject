@@ -1,6 +1,7 @@
 package by.itacademy.web.controller;
 
-import by.itacademy.database.dto.FilterDto;
+import by.itacademy.database.dto.CatalogDto;
+import by.itacademy.database.dto.CatalogFilterDto;
 import by.itacademy.database.entity.Book;
 import by.itacademy.service.service.BookService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static by.itacademy.web.path.UrlPath.BOOK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.http.MediaType.sortByQualityValue;
 
 @RestController
 @RequestMapping(BOOK)
@@ -31,8 +33,8 @@ public class BookController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-    public Iterable<Book> getAllFilteredBooks(@RequestBody FilterDto filter) {
-        return bookService.getAllFiltered(filter);
+    public CatalogDto getAllFilteredBooks(@RequestBody CatalogFilterDto filter) {
+        return bookService.getFilteredCatalog(filter);
     }
 
     @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
