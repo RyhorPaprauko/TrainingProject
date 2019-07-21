@@ -1,11 +1,13 @@
 package by.itacademy.service.service;
 
+import by.itacademy.database.dto.UserDto;
 import by.itacademy.database.entity.User;
 import by.itacademy.database.repository.RoleRepository;
 import by.itacademy.database.repository.UserRepository;
 import by.itacademy.service.util.NonNullAndEmptyBeanUtilsBean;
 import lombok.AllArgsConstructor;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,9 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-    public Optional<User> saveUser(User user) {
-
+    public Optional<User> saveUser(UserDto userDto) {
+        User user = User.builder().build();
+        BeanUtils.copyProperties(userDto,user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleRepository.getByRole("USER"));
 

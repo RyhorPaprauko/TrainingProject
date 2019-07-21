@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum Genre {
     CLASSIC("Classic"),
     COMEDY("Comedy"),
-    FANTASY("Fantasy");
+    FANTASY("Fantasy"),
+    THRILLER("Thriller");
 
     private String name;
 }
