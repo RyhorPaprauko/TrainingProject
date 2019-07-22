@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Book Store</title>
+    <th:block th:insert="fragments/css::css"></th:block>
+</head>
+
+<body>
+<th:block th:insert="fragments/header::header"></th:block>
+<div class="breadcrumb">
+    <div class="container">
+        <a class="breadcrumb-item" th:href="@{/}">Home</a>
+        <span class="breadcrumb-item active">Login</span>
+    </div>
+</div>
+<section class="static about-sec">
+    <div class="container">
+        <h1>My Account / Login</h1>
+
+        <div class="error" th:if="${param.error}">
+            <a> Invalid username or password.</a>
+        </div>
+        <div class="success" th:if="${param.success}">
+            <a>Success! Now you can enter.</a>
+        </div>
+
+        <div class="form">
+            <form name="f" th:action="@{/login}" method="post">
+                <div class="row">
+                    <div class="col-md-5">
+                        <input id="username" name="username" placeholder="Enter User Name" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-5">
+                        <input id="password" name="password" type="password" placeholder="Enter Password" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                        <button class="btn black">Login</button>
+                        <h5>not Registered? <a th:href="@{/registration}">Register here</a></h5>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<th:block th:insert="fragments/footer::footer"></th:block>
+<th:block th:insert="fragments/scripts::scripts"></th:block>
+</body>
+
+</html>

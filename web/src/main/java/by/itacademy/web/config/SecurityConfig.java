@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static by.itacademy.web.path.UrlPath.ADMIN;
-import static by.itacademy.web.path.UrlPath.BOOK;
+import static by.itacademy.web.path.UrlPath.CATALOG;
 import static by.itacademy.web.path.UrlPath.LOGIN;
 
 @Configuration
@@ -35,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-//                .loginPage(LOGIN)
-                .defaultSuccessUrl(BOOK)
+                .loginPage(LOGIN)
+                .defaultSuccessUrl(CATALOG)
                 .and()
                 .logout()
                 .logoutSuccessUrl(LOGIN)

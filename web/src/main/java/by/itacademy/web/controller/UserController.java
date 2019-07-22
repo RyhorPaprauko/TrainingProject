@@ -31,11 +31,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public User saveNewUser(@RequestBody User user) {
-        return userService.saveUser(user).orElse(null);
-    }
 
     @PostMapping(value = "/{id}", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("#id == authentication.principal.id")
