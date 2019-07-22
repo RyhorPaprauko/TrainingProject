@@ -5,7 +5,7 @@
     <div class="header-top">
         <div class="container">
             <div class="row">
-                <div class="col-md-3"><a href="#" class="web-url">www.bookstore.com</a></div>
+                <div class="col-md-3"><a th:href="@{/}" class="web-url">www.bookstore.com</a></div>
                 <div class="col-md-6">
                     <h5>Free Shipping Over $99 + 3 Free Samples With Every Order</h5></div>
                 <div class="col-md-3">
@@ -17,7 +17,7 @@
     <div class="main-menu">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.html"><img th:src="@{images/logo.png}" alt="logo"></a>
+                <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo.png}" alt="logo"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,11 +35,11 @@
                         <li class="navbar-item">
                             <a href="faq.html" class="nav-link">FAQ</a>
                         </li>
-                        <li class="navbar-item">
-                            <a th:href="@{/login}" class="nav-link" sec:authorize="!isAuthenticated()">Login</a>
+                        <li class="navbar-item" sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}" class="nav-link">Login</a>
                         </li>
-                        <li class="navbar-item">
-                            <a th:href="@{/logout}" class="nav-link" sec:authorize="isAuthenticated()">Logout</a>
+                        <li class="navbar-item" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/logout}" class="nav-link" >Logout</a>
                         </li>
                     </ul>
                     <div class="cart my-2 my-lg-0">

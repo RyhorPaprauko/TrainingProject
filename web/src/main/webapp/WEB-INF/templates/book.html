@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.name}"></title>
+    <th:block th:insert="fragments/css::css"></th:block>
+</head>
+
+<body onload="getComments()">
+<th:block th:insert="fragments/header::header"></th:block>
+
+<section class="product-sec">
+    <div class="container">
+        <h1 th:text="${book.name}"></h1>
+        <div class="row">
+            <div class="col-md-6 slider-sec">
+                <!-- main slider carousel -->
+                <div id="myCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="active item carousel-item" data-slide-number="0">
+                            <img th:src="'../'+${book.image}" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <!--/main slider carousel-->
+            </div>
+            <div class="col-md-6 slider-content">
+                <p th:text="${book.about}"></p>
+                <p th:text="${book.about}"></p>
+                <ul>
+                    <li>
+                        <span class="name">Usual Price</span><span class="clm">:</span>
+                        <span id="usual-price" class="price">$300</span>
+                    </li>
+                    <li>
+                        <span class="name">Kindle Price</span><span class="clm">:</span>
+                        <span id="price-final" class="price final" th:text="'$'+${book.price}"></span>
+                    </li>
+                    <li><span id="save-cost" class="save-cost">Save $400</span></li>
+                </ul>
+                <input type="hidden" id="book-id" th:value="${book.id}">
+                <div class="btn-sec" sec:authorize="isAuthenticated()">
+                    <button id="buyButton" class="btn " onclick="buy()">Add To cart</button>
+                    <button class="btn black">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="commentsSection">
+</div>
+
+
+<th:block th:insert="fragments/footer::footer"></th:block>
+<script th:src="@{/js/comment.js}"></script>
+<th:block th:insert="fragments/scripts::scripts"></th:block>
+</body>
+</html>

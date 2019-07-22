@@ -19,7 +19,7 @@ function getCatalog(page) {
         body: JSON.stringify(catalogFilterDto)
     };
 
-    fetch('/book', options)
+    fetch('/api/book', options)
         .then(response => {
             return response.json();
         })
