@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertNotNull;
 
 public class UserTest extends BaseTest {
@@ -36,8 +35,6 @@ public class UserTest extends BaseTest {
         User user = userRepository.getOne(1L);
         assertNotNull(user);
         assertThat(user.getLogin(), equalTo("admin"));
-        assertThat(user.getBookings(), hasSize(1));
-        assertThat(user.getComment(), hasSize(1));
         assertThat(user.getRoles().iterator().next().getRole(), equalTo("ADMIN"));
     }
 }

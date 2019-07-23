@@ -1,7 +1,6 @@
 package by.itacademy.database.entity;
 
 import by.itacademy.database.entity.enam.Genre;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,11 +20,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -57,22 +53,9 @@ public class Book implements BaseEntity {
     private Integer price;
 
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinTable(name = "book_author", schema = "bookstore_storage",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
-
-    @ToString.Exclude
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "booking_book", schema = "bookstore_storage",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "booking_id"))
-    private List<Booking> bookings = new ArrayList<>();
-
-    @JsonIgnore
-    @ToString.Exclude
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
 }

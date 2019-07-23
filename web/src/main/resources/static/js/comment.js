@@ -1,6 +1,8 @@
 function getComments() {
 
     var commentsSection = document.getElementById('commentsSection');
+    var username = document.getElementById('username').value;
+    var isAdmin = document.getElementById('isAdmin').value;
     cleanElement(commentsSection);
 
     let options = {
@@ -20,14 +22,16 @@ function getComments() {
                 var comDiv = document.createElement('div');
                 var commentAuthor = document.createElement('b').textContent = comments[i].authorLogin;
                 var comment = document.createElement('p').textContent = comments[i].text;
-
-                var buttonDiv = document.createElement('div');
-                buttonDiv.setAttribute('sec:authorize', 'isAuthenticated()');
-                var deleteButton = document.createElement('button');
-                buttonDiv.append(deleteButton);
-
-                comDiv.append(commentAuthor, comment, buttonDiv);
-
+                comDiv.append(commentAuthor, comment);
+                if (username == comments[i].authorLogin || isAdmin == 'true') {
+                    var deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.value = comments[i].id;
+                    deleteButton.onclick = function () {
+                        deleteComment(this.value)
+                    };
+                    comDiv.append(deleteButton);
+                }
                 commentsSection.append(comDiv);
             }
         })
@@ -43,6 +47,19 @@ function addComment() {
         page: page != undefined ? page : 1
     };
 }
+
+function deleteComment(commentId) {
+    let options = {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'DELETE',
+        body: commentId
+    };
+    fetch('/api/comment', options)
+        .then(getComments)
+}
+
 
 function cleanElement(element) {
     while (element.firstChild) {

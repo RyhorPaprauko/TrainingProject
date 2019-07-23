@@ -2,7 +2,6 @@ package by.itacademy.service.service;
 
 import by.itacademy.database.dto.UserDto;
 import by.itacademy.database.entity.User;
-import by.itacademy.database.repository.RoleRepository;
 import by.itacademy.database.repository.UserRepository;
 import by.itacademy.service.util.NonNullAndEmptyBeanUtilsBean;
 import lombok.AllArgsConstructor;
@@ -22,15 +21,15 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
 
     public Optional<User> saveUser(UserDto userDto) {
         User user = User.builder().build();
-        BeanUtils.copyProperties(userDto,user);
+        BeanUtils.copyProperties(userDto, user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(roleRepository.getByRole("USER"));
+        user.getRoles().add(roleService.getByRole("USER"));
 
         return Optional.of(userRepository.save(user));
     }
@@ -38,7 +37,7 @@ public class UserService {
     public Optional<User> saveAdmin(User user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(roleRepository.getByRole("ADMIN"));
+        user.getRoles().add(roleService.getByRole("ADMIN"));
 
         return Optional.of(userRepository.save(user));
     }

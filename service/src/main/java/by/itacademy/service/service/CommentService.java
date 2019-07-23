@@ -21,7 +21,7 @@ public class CommentService {
     private final CommentMapper mapper;
 
     public List<CommentDto> getAllBookComments(Long id) {
-        return commentRepository.findAllByBook_Id(id).stream()
+        return commentRepository.findAllByBookId(id).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -30,7 +30,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public void deleteComment(Comment comment) {
-        commentRepository.delete(comment);
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
     }
 }
