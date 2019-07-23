@@ -29,7 +29,6 @@ public class CommentController {
 
     @DeleteMapping(consumes = APPLICATION_JSON_UTF8_VALUE)
     public void deleteComment(@RequestBody Long commentId) {
-        System.out.println();
         commentService.deleteComment(commentId);
     }
 }
