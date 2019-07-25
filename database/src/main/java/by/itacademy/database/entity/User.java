@@ -1,5 +1,6 @@
 package by.itacademy.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,6 +48,7 @@ public class User implements BaseEntity<Long> {
     private Contacts contacts;
 
     @Builder.Default
+    @JsonIgnore
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", schema = "bookstore_storage",

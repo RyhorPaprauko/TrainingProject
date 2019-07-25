@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static by.itacademy.web.path.UrlPath.ADMIN;
-import static by.itacademy.web.path.UrlPath.LOGIN;
-import static by.itacademy.web.path.UrlPath.MAIN;
+import static by.itacademy.web.util.UrlPath.ADMIN;
+import static by.itacademy.web.util.UrlPath.LOGIN;
+import static by.itacademy.web.util.UrlPath.MAIN;
 
 @Configuration
 @EnableWebSecurity

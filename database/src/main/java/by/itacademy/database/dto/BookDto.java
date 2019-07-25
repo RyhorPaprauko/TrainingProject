@@ -1,18 +1,24 @@
 package by.itacademy.database.dto;
 
+import by.itacademy.database.entity.Author;
 import by.itacademy.database.entity.enam.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDto implements MarkerDto {
+public class BookDto {
 
     private Long id;
     private String name;
@@ -20,4 +26,5 @@ public class BookDto implements MarkerDto {
     private String image;
     private Genre genre;
     private Integer price;
+    private Set<Long> authorId = new HashSet<>();
 }

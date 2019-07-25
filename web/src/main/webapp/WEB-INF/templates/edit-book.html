@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+    <th:block th:insert="fragments/css::css"></th:block>
+</head>
+<body>
+<th:block th:insert="fragments/header::header"></th:block>
+<section class="static about-sec">
+
+    <div class="container">
+        <h1>Add a New Book</h1>
+
+        <div class="form">
+            <form th:action="@{'/change/'+${book.id}}" enctype="multipart/form-data" th:object="${book}" method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input th:field="*{name}" th:value="${book.name}">
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{price}"  th:value="${book.price}">
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <select th:field="*{genre}" th:value="${book.genre}">
+                            <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-8 col-md-4">
+                        <textarea th:field="*{about}" th:value="${book.about}" ></textarea>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <img th:src="${book.image}" class="img-change">
+                        <input type="file" name="file">
+                        <span class="required-star">*</span>
+                        <input type="hidden" th:field="*{image}" th:value="${book.image}">
+                    </div>
+
+                    <div class="col-lg-8 col-md-12">
+                        <button class="btn black">Change Book</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+<th:block th:insert="fragments/footer::footer"></th:block>
+<th:block th:insert="fragments/scripts::scripts"></th:block>
+</body>
+
+</html>

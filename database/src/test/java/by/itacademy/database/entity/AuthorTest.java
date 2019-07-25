@@ -32,7 +32,6 @@ public class AuthorTest extends BaseTest {
         Author author = authorRepository.getOne(1L);
         assertNotNull(author);
         assertThat(author.getName(), equalTo("Alexander"));
-        assertThat(author.getBooks(), hasSize(2));
         assertThat(author.getBio(), equalTo("Molodec"));
         assertThat(author.getSurname(), equalTo("Pushkin"));
     }

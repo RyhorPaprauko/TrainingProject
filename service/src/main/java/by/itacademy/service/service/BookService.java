@@ -1,14 +1,17 @@
 package by.itacademy.service.service;
 
+import by.itacademy.database.dto.BookDto;
 import by.itacademy.database.dto.CatalogDto;
 import by.itacademy.database.dto.CatalogFilterDto;
 import by.itacademy.database.entity.Book;
 import by.itacademy.database.repository.BookRepository;
 import by.itacademy.service.filter.CatalogExpressionBuilder;
+import by.itacademy.service.mapper.BookMapper;
 import by.itacademy.service.util.NonNullAndEmptyBeanUtilsBean;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,14 +28,17 @@ import static by.itacademy.database.entity.QBook.book;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BookService {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
+    private final BookMapper mapper;
 
-    public Book saveBook(Book book) {
-        return bookRepository.save(book);
+    public Book saveBook(BookDto bookDto) {
+        return bookRepository.save(
+                mapper.toEntity(bookDto));
     }
 
-    public Optional<Book> findById(Long id) {
-        return bookRepository.findById(id);
+    public Book findById(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(id, Book.class.getName()));
     }
 
     public Iterable<Book> getAll() {

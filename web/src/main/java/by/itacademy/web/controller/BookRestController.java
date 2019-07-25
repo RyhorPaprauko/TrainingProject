@@ -23,12 +23,6 @@ public class BookRestController {
 
     private BookService bookService;
 
-    @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public Book saveNewBook(@RequestBody Book book) {
-        return bookService.saveBook(book);
-    }
-
     @PostMapping(value = "/{id}", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
     public Book updateBook(@PathVariable(value = "id") Long id, @RequestBody Book book) {
         return bookService.updateBook(book);
@@ -36,7 +30,7 @@ public class BookRestController {
 
     @GetMapping(value = "/{id}")
     public Book getBook(@PathVariable(value = "id") Long id) {
-        return bookService.findById(id).orElse(null);
+        return bookService.findById(id);
     }
 
     @DeleteMapping(value = "/{id}", consumes = APPLICATION_JSON_UTF8_VALUE)

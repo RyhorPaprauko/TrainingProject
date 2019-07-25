@@ -41,12 +41,4 @@ public class Author implements BaseEntity<Long> {
 
     @Column(name = "bio")
     private String bio;
-
-    @ToString.Exclude
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "book_author", schema = "bookstore_storage",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private Set<Book> books = new HashSet<>();
 }

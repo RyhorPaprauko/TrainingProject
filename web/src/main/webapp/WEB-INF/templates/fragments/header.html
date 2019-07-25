@@ -27,7 +27,7 @@
                             <a href="index.html" class="nav-link">Home</a>
                         </li>
                         <li class="navbar-item active">
-                            <a href="catalog.html" class="nav-link">Shop</a>
+                            <a th:href="@{/}" class="nav-link">Shop</a>
                         </li>
                         <li class="navbar-item">
                             <a href="about.html" class="nav-link">About</a>
@@ -44,7 +44,7 @@
                     </ul>
                     <div class="cart my-2 my-lg-0">
                             <span>
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                                <i th:href="@{/order}" class="fa fa-shopping-cart" aria-hidden="true"></i></span>
                         <span class="quntity" sec:authorize="isAuthenticated()">3</span>
                     </div>
                 </div>

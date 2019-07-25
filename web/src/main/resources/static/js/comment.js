@@ -39,13 +39,22 @@ function getComments() {
 
 function addComment() {
 
-    let comment = {
-        name: document.getElementById('book-name').value,
-        genre: document.getElementById('genre').value,
-        price: document.getElementById('price').value,
-        limit: document.getElementById('limit').value,
-        page: page != undefined ? page : 1
+    let commentDto = {
+        text: document.getElementById('comment-text').value,
+        authorLogin: document.getElementById('username').value,
+        bookId: document.getElementById('book-id').value
     };
+
+    let options = {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        body: JSON.stringify(commentDto)
+    };
+
+    fetch('/api/comment', options)
+        .then(getComments)
 }
 
 function deleteComment(commentId) {

@@ -41,7 +41,7 @@
                 </ul>
                 <input type="hidden" id="book-id" th:value="${book.id}">
                 <div class="btn-sec" sec:authorize="isAuthenticated()">
-                    <button id="buyButton" class="btn " onclick="buy()">Add To cart</button>
+                    <button id="buyButton" class="btn " onclick="addBook()">Add To cart</button>
                     <button class="btn black">Buy Now</button>
                 </div>
             </div>
@@ -54,6 +54,10 @@
     <input type="hidden" th:value="${isAdmin}" id="isAdmin">
 </div>
 <div id="commentsSection">
+</div>
+<div sec:authorize="isAuthenticated()">
+    <input type="text" id="comment-text">
+    <button onclick="addComment()">Send</button>
 </div>
 
 

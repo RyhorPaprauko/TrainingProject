@@ -26,8 +26,9 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public Comment saveComment(Comment comment) {
-        return commentRepository.save(comment);
+    public Comment saveComment(CommentDto commentDto) {
+        return commentRepository.save(
+                mapper.toEntity(commentDto));
     }
 
     public void deleteComment(Long id) {
