@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -19,6 +22,17 @@ public class BookingService {
     private final BookingMapper mapper;
     private final UserService userService;
     private final BookService bookService;
+
+    public Set<BookingDto> getAllCompletedBookings() {
+        return bookingRepository.findByCompletedTrue().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    public BookingDto getUserBookingDto(String login) {
+        return mapper.toDto(
+                getUserBooking(login));
+    }
 
     public void addBookToUserBooking(BuyDto buyDto) {
         Booking booking = getUserBooking(buyDto.getUsername());
@@ -45,11 +59,6 @@ public class BookingService {
         booking.setCompleted(true);
 
         bookingRepository.save(booking);
-    }
-
-    public BookingDto getUserBookingDto(String login){
-        return mapper.toDto(
-                getUserBooking(login));
     }
 
     private Booking getUserBooking(String login) {

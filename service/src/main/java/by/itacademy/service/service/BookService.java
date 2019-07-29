@@ -7,19 +7,14 @@ import by.itacademy.database.entity.Book;
 import by.itacademy.database.repository.BookRepository;
 import by.itacademy.service.filter.CatalogExpressionBuilder;
 import by.itacademy.service.mapper.BookMapper;
-import by.itacademy.service.util.NonNullAndEmptyBeanUtilsBean;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
-import org.apache.commons.beanutils.BeanUtilsBean;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
 
 import static by.itacademy.database.entity.QBook.book;
 
@@ -59,18 +54,11 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book updateBook(Book updatedBook) {
-        BeanUtilsBean copier = new NonNullAndEmptyBeanUtilsBean();
-
-        Book existedBook = bookRepository.getOne(updatedBook.getId());
-        try {
-            copier.copyProperties(existedBook, updatedBook);
-            return bookRepository.save(existedBook);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
-        return bookRepository.save(existedBook);
+    public Book updateBook(BookDto bookDto) {
+        Book existedBook = bookRepository.getOne(bookDto.getId());
+        System.out.println();
+        return bookRepository.save(
+                mapper.updateEntity(bookDto, existedBook));
     }
 
     private BooleanExpression getFilterExpression(CatalogFilterDto filter) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import static by.itacademy.web.util.UrlPath.ADMIN;
 import static by.itacademy.web.util.UrlPath.ORDER;
 
 @Controller
@@ -20,5 +21,11 @@ public class OrderPageController {
     public String getPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
         model.addAttribute("username", currentUser.getUsername());
         return "order";
+    }
+
+    @GetMapping(ORDER + ADMIN)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getAdminPage() {
+        return "processed-order";
     }
 }

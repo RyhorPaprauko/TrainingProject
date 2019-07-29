@@ -6,12 +6,16 @@ import by.itacademy.service.service.BookingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
+import static by.itacademy.web.util.UrlPath.ADMIN;
 import static by.itacademy.web.util.UrlPath.BOOKING;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -40,5 +44,10 @@ public class BookingController {
     @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE)
     public void completeUserBooking(@RequestBody String login) {
         bookingService.completeUserBooking(login);
+    }
+
+    @GetMapping(value = ADMIN, produces = APPLICATION_JSON_UTF8_VALUE)
+    public Set<BookingDto> getCompletedBookings() {
+        return bookingService.getAllCompletedBookings();
     }
 }

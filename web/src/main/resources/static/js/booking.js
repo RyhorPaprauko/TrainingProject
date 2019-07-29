@@ -79,7 +79,7 @@ function getBooking() {
                 totalPrice.textContent = booking.totalPrice;
                 var completeButton = document.createElement('button');
                 completeButton.textContent = 'Order';
-                completeButton.onclick = function(){
+                completeButton.onclick = function () {
                     completeOrder()
                 };
 
@@ -101,6 +101,44 @@ function completeOrder() {
     fetch('/api/booking', options)
         .then(getBooking)
 
+}
+
+function processedBookings() {
+
+    var section = document.getElementById('order-section');
+    cleanElement(section);
+
+    fetch('/api/booking/admin')
+        .then(response => {
+            return response.json();
+        })
+        .then(bookings => {
+                if (bookings.length == null || bookings.length == 0) {
+                    var alert = document.createElement('h1');
+                    alert.textContent = 'There is no completed orders yet';
+                    section.append(alert);
+                } else {
+                    for (var i = 0; i < bookings.length; i++) {
+                        var div = document.createElement('div');
+                        var username = document.createElement('h1');
+                        username.textContent = bookings[i].username;
+                        var list = document.createElement('ul');
+
+                        var books = bookings[i].books;
+                        for (var j = 0; j < books.length; j++) {
+                            var li = document.createElement('li');
+                            li.textContent = books[j].name;
+                            list.append(li);
+                        }
+                        var totalPrice = document.createElement('h1');
+                        totalPrice.textContent = bookings[i].totalPrice;
+
+                        div.append(username, list, totalPrice);
+                        section.append(div);
+                    }
+                }
+            }
+        )
 }
 
 function cleanElement(element) {

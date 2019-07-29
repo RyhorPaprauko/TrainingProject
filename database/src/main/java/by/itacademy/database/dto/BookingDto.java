@@ -10,6 +10,7 @@ import java.util.List;
 public class BookingDto {
 
     private Long id;
+    private String username;
     private List<Book> books = new ArrayList<>();
     private Double totalPrice;
 }

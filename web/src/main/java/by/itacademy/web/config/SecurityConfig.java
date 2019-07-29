@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static by.itacademy.web.util.UrlPath.ADMIN;
 import static by.itacademy.web.util.UrlPath.LOGIN;
 import static by.itacademy.web.util.UrlPath.MAIN;
+import static by.itacademy.web.util.UrlPath.ORDER;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(ADMIN).hasAuthority("ADMIN")
-                .antMatchers(ADMIN).authenticated()
+                .antMatchers(ORDER).authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

@@ -2,17 +2,13 @@ package by.itacademy.service.service;
 
 import by.itacademy.database.entity.Author;
 import by.itacademy.database.repository.AuthorRepository;
-import by.itacademy.service.util.NonNullAndEmptyBeanUtilsBean;
 import lombok.AllArgsConstructor;
-import org.apache.commons.beanutils.BeanUtilsBean;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,5 +28,9 @@ public class AuthorService {
 
     public List<Author> getAll() {
         return authorRepository.findAll();
+    }
+
+    public void deleteAuthor(Long id) {
+        authorRepository.deleteById(id);
     }
 }

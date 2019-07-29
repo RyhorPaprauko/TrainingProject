@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration/Book Store</title>
+    <th:block th:insert="fragments/css::css"></th:block>
+</head>
+
+<body>
+<th:block th:insert="fragments/header::header"></th:block>
+<div class="breadcrumb">
+    <div class="container">
+        <a class="breadcrumb-item" href="index.html">Home</a>
+        <span class="breadcrumb-item active">Register</span>
+    </div>
+</div>
+<section class="static about-sec">
+    <div class="container">
+        <h1>My Account / Register</h1>
+        <div class="form">
+            <form th:action="@{/registration/admin}" th:object="${user}" method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input th:field="*{login}" placeholder="Enter Username" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{password}" type="password" placeholder="Password" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="password" placeholder="Repeat Password" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{fullName}" placeholder="Full Name" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{contacts.mail}" type="email" placeholder="E-mail" required>
+                        <span class="required-star">*</span>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{contacts.tel}" type="tel" placeholder="Your Phone +375(XX)XXX-XX-XX"
+                               required>
+                        <span class="required-star">*</span>
+                    </div>
+
+
+
+                    <div class="col-lg-8 col-md-12">
+                        <button class="btn black">Register</button>
+                        <h5>not Registered? <a th:href="@{/login}">Login here</a></h5>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<th:block th:insert="fragments/footer::footer"></th:block>
+<th:block th:insert="fragments/scripts::scripts"></th:block>
+</body>
+
+</html>

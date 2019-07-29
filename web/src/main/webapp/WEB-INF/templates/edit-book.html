@@ -13,14 +13,15 @@
         <h1>Add a New Book</h1>
 
         <div class="form">
-            <form th:action="@{'/change/'+${book.id}}" enctype="multipart/form-data" th:object="${book}" method="post">
+            <form th:action="@{'/book/admin/update'}" enctype="multipart/form-data" th:object="${book}" method="post">
+                <input type="hidden" th:field = "*{id}" th:value="${book.id}">
                 <div class="row">
                     <div class="col-md-4">
                         <input th:field="*{name}" th:value="${book.name}">
                         <span class="required-star">*</span>
                     </div>
                     <div class="col-md-4">
-                        <input th:field="*{price}"  th:value="${book.price}">
+                        <input th:field="*{price}" th:value="${book.price}">
                         <span class="required-star">*</span>
                     </div>
                     <div class="col-md-4">
@@ -30,7 +31,7 @@
                     </div>
 
                     <div class="col-lg-8 col-md-4">
-                        <textarea th:field="*{about}" th:value="${book.about}" ></textarea>
+                        <textarea th:field="*{about}" th:value="${book.about}"></textarea>
                         <span class="required-star">*</span>
                     </div>
                     <div class="col-md-4">

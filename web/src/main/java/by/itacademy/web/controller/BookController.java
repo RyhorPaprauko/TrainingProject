@@ -51,9 +51,8 @@ public class BookController {
 
     @GetMapping(ADMIN)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String getNewBookPage(Model model) {
+    public String getAddBookPage(Model model) {
         model.addAttribute("genres", Genre.values());
-        model.addAttribute("authors", authorService.getAll());
 
         return "new-book";
     }
@@ -63,16 +62,26 @@ public class BookController {
     public String addBook(@RequestParam MultipartFile file, BookDto bookDto) {
         bookDto.setImage(ImageLoader.load(file));
         Book book = bookService.saveBook(bookDto);
-        return "book/admin/" + book.getId();
+        return "redirect:/book/admin/" + book.getId();
     }
 
     @GetMapping(ADMIN + "/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String getEditBookPage(Model model, @PathVariable(value = "id") Long id) {
         model.addAttribute("genres", Genre.values());
-        model.addAttribute("authors", authorService.getAll());
         model.addAttribute("book", bookService.findById(id));
 
         return "edit-book";
+    }
+
+    @PostMapping(ADMIN + "/update")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String editBook(@RequestParam MultipartFile file, BookDto bookDto) {
+        if (!file.isEmpty()) {
+            bookDto.setImage(ImageLoader.load(file));
+        }
+
+        return "redirect:/book/" +
+                bookService.updateBook(bookDto).getId();
     }
 }

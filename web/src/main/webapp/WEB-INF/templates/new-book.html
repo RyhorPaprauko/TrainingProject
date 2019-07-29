@@ -5,7 +5,7 @@
     <title>Add Book</title>
     <th:block th:insert="fragments/css::css"></th:block>
 </head>
-<body>
+<body onload="getAuthors()">
 <th:block th:insert="fragments/header::header"></th:block>
 <section class="static about-sec">
 
@@ -38,7 +38,7 @@
                         <span class="required-star">*</span>
                     </div>
                     <div class="col-md-4">
-                        <select multiple="multiple" name="authorId">
+                        <select multiple="multiple" name="authorId" id="author-select">
                             <option th:each="author : ${authors}" th:value="${author.id}"
                                     th:text="${author.surname}"></option>
                         </select>
@@ -52,8 +52,17 @@
         </div>
     </div>
 
+    <div>
+        <h3>Add Author</h3>
+        <input id="author-name" placeholder="Name">
+        <input id="author-surname" placeholder="Surame">
+        <input type="text" id="author-bio" placeholder="Bio">
+        <button onclick="addAuthor()">Add Author</button>
+    </div>
+
 </section>
 <th:block th:insert="fragments/footer::footer"></th:block>
+<script th:src="@{/js/author.js}"></script>
 <th:block th:insert="fragments/scripts::scripts"></th:block>
 </body>
 

@@ -20,9 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @EqualsAndHashCode(of = "id")
@@ -63,6 +61,7 @@ public class Booking implements BaseEntity<Long> {
         return processed;
     }
 
+    @Transient
     public Double getTotalPrice() {
         return books.stream()
                 .mapToDouble(Book::getPrice)

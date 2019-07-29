@@ -15,7 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class RestControllers {
+public class RestBookControllers {
 
     private final BookService bookService;
 

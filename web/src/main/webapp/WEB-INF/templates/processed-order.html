@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="Order"></title>
+    <th:block th:insert="fragments/css::css"></th:block>
+</head>
+
+<body onload="processedBookings()">
+<th:block th:insert="fragments/header::header"></th:block>
+<div id="order-section">
+
+</div>
+
+<th:block th:insert="fragments/footer::footer"></th:block>
+<th:block th:insert="fragments/scripts::scripts"></th:block>
+</body>
+</html>

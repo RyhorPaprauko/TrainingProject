@@ -5,14 +5,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @UtilityClass
 public class ImageLoader {
 
-    private static final String LOCATION = "C:\\Users\\Admin\\Desktop\\pict\\";
+    private static final String LOCATION = "D:\\pictures\\";
 
     public String load(MultipartFile file) {
         String filename = file.getOriginalFilename();
@@ -24,6 +21,6 @@ public class ImageLoader {
             e.printStackTrace();
         }
 
-        return "/pictures/" + filename;
+        return "pictures/" + filename;
     }
 }
