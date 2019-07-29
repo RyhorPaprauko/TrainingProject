@@ -19,31 +19,53 @@
     <div class="container">
         <h1>My Account / Register</h1>
         <div class="form">
-            <form th:action="@{/registration}" th:object="${user}" method="post">
+            <form th:action="@{/registration}" th:object="${registrationDto}" method="post">
                 <div class="row">
-                    <div class="col-md-4">
-                        <input th:field="*{login}" placeholder="Enter Username" required>
-                        <span class="required-star">*</span>
+                    <div class="error" th:if="${#fields.hasErrors('login')}">
+                        <a th:errors="*{login}" style="color: red">Error</a>
                     </div>
                     <div class="col-md-4">
-                        <input th:field="*{password}" type="password" placeholder="Password" required>
+                        <input th:field="*{login}" placeholder="Enter Username">
                         <span class="required-star">*</span>
                     </div>
-                    <div class="col-md-4">
-                        <input type="password" placeholder="Repeat Password" required>
-                        <span class="required-star">*</span>
+
+                    <div class="error" th:if="${#fields.hasErrors('password')}">
+                        <a th:errors="*{password}" style="color: red">Error</a>
                     </div>
                     <div class="col-md-4">
-                        <input th:field="*{fullName}" placeholder="Full Name" required>
+                        <input th:field="*{password}" type="password" placeholder="Password">
                         <span class="required-star">*</span>
                     </div>
-                    <div class="col-md-4">
-                        <input th:field="*{contacts.mail}" type="email" placeholder="E-mail" required>
-                        <span class="required-star">*</span>
+
+                    <div class="error" th:if="${#fields.hasErrors('global')}">
+                        <a th:errors="*{global}" style="color: red">Error</a>
                     </div>
                     <div class="col-md-4">
-                        <input th:field="*{contacts.tel}" type="tel" placeholder="Your Phone +375(XX)XXX-XX-XX"
-                               required>
+                        <input th:field="*{confirmPassword}" type="password" placeholder="Repeat Password">
+                        <span class="required-star">*</span>
+                    </div>
+
+                    <div class="error" th:if="${#fields.hasErrors('fullName')}">
+                        <a th:errors="*{fullName}" style="color: red">Error</a>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{fullName}" placeholder="Full Name">
+                        <span class="required-star">*</span>
+                    </div>
+
+                    <div class="error" th:if="${#fields.hasErrors('mail')}">
+                        <a th:errors="*{mail}" style="color: red">Error</a>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{mail}" type="email" placeholder="E-mail" >
+                        <span class="required-star">*</span>
+                    </div>
+
+                    <div class="error" th:if="${#fields.hasErrors('tel')}">
+                        <a th:errors="*{tel}" style="color: red">Error</a>
+                    </div>
+                    <div class="col-md-4">
+                        <input th:field="*{tel}" type="tel" placeholder="Your Phone +375(XX)XXX-XX-XX">
                         <span class="required-star">*</span>
                     </div>
 

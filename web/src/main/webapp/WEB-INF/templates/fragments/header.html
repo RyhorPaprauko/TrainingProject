@@ -21,30 +21,31 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a href="?language=ru_RU">Русский</a>
+                І
+                <a href="?language=en_US">English</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item">
-                            <a href="index.html" class="nav-link">Home</a>
+                        <li class="navbar-item active" sec:authorize="hasAuthority('ADMIN')">
+                            <a th:href="@{/registration/admin}" th:text="#{addAdmin}" class="nav-link">Shop</a>
+                        </li>
+                        <li class="navbar-item active" sec:authorize="hasAuthority('ADMIN')">
+                            <a th:href="@{/book/admin}" th:text="#{addBook}" class="nav-link">Shop</a>
                         </li>
                         <li class="navbar-item active">
-                            <a th:href="@{/}" class="nav-link">Shop</a>
-                        </li>
-                        <li class="navbar-item">
-                            <a href="about.html" class="nav-link">About</a>
-                        </li>
-                        <li class="navbar-item">
-                            <a href="faq.html" class="nav-link">FAQ</a>
+                            <a th:href="@{/}" th:text="#{shop}" class="nav-link">Shop</a>
                         </li>
                         <li class="navbar-item" sec:authorize="!isAuthenticated()">
-                            <a th:href="@{/login}" class="nav-link">Login</a>
+                            <a th:href="@{/login}" th:text="#{login}" class="nav-link">Login</a>
                         </li>
                         <li class="navbar-item" sec:authorize="isAuthenticated()">
-                            <a th:href="@{/logout}" class="nav-link" >Logout</a>
+                            <a th:href="@{/logout}" th:text="#{logout}" class="nav-link" >Logout</a>
                         </li>
                     </ul>
                     <div class="cart my-2 my-lg-0">
                             <span>
-                                <i th:href="@{/order}" class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                                <a sec:authorize="isAuthenticated()" th:href="@{/order}">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></span>
                         <span class="quntity" sec:authorize="isAuthenticated()">3</span>
                     </div>
                 </div>

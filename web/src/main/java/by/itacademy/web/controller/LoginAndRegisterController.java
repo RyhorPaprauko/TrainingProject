@@ -1,6 +1,7 @@
 package by.itacademy.web.controller;
 
 
+import by.itacademy.database.dto.RegistrationDto;
 import by.itacademy.database.entity.User;
 import by.itacademy.service.service.UserService;
 import lombok.AllArgsConstructor;
@@ -8,8 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 import static by.itacademy.web.util.UrlPath.ADMIN;
 import static by.itacademy.web.util.UrlPath.LOGIN;
@@ -27,29 +34,36 @@ public class LoginAndRegisterController {
     }
 
     @GetMapping(REGISTRATION)
-    public String getRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
+    public String getRegistrationPage(RegistrationDto registrationDto) {
         return "registration";
     }
 
     @PostMapping(REGISTRATION)
-    public String registration(User user) {
-        return userService.saveUser(user)
+    public String registration(@ModelAttribute @Valid RegistrationDto userDto, BindingResult bindingResult) {
+        System.out.println();
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+        return userService.saveUser(userDto)
                 .map(it -> "redirect:/login?success=true")
                 .orElse("redirect:/registration");
     }
 
     @GetMapping(REGISTRATION + ADMIN)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String getAdminRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
+    public String getAdminRegistrationPage(RegistrationDto registrationDto) {
         return "admin-registration";
     }
 
     @PostMapping(REGISTRATION + ADMIN)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String adminRegistration(User user) {
-        return userService.saveAdmin(user)
+    public String adminRegistration(@ModelAttribute @Valid RegistrationDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "registration/admin";
+        }
+
+        return userService.saveAdmin(userDto)
                 .map(it -> "redirect:/login?success=true")
                 .orElse("redirect:/registration/admin");
     }
