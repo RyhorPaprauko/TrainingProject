@@ -31,7 +31,13 @@ public class BookingTest extends BaseTest {
                 .build();
 
         bookingRepository.save(booking);
-        assertNotNull(bookingRepository.getOne(booking.getId()));
+        Booking savedBooking = bookingRepository.getOne(booking.getId());
+        assertNotNull(savedBooking);
+        assertThat(savedBooking, equalTo(booking));
+        assertThat(savedBooking.getUser(), equalTo(booking.getUser()));
+        assertThat(savedBooking.getBooks(), equalTo(booking.getBooks()));
+        assertThat(savedBooking.getCompleted(), equalTo(booking.getCompleted()));
+        assertThat(savedBooking.getProcessed(), equalTo(booking.getProcessed()));
     }
 
     @Test
@@ -42,5 +48,6 @@ public class BookingTest extends BaseTest {
         assertThat(booking.getBooks(), hasSize(2));
         assertThat(booking.isCompleted(), equalTo(false));
         assertThat(booking.isProcessed(), equalTo(false));
+        assertThat(booking.getTotalPrice(), equalTo(50.0));
     }
 }

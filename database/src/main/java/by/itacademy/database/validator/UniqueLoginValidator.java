@@ -5,7 +5,7 @@ import by.itacademy.database.repository.UserRepository;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-class UniqueLoginValidator implements ConstraintValidator<UniqueLogin, String> {
+public class UniqueLoginValidator implements ConstraintValidator<UniqueLogin, String> {
 
     private UserRepository userRepository;
 

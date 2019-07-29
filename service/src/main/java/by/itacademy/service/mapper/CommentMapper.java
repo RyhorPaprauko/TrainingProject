@@ -4,7 +4,6 @@ import by.itacademy.database.dto.CommentDto;
 import by.itacademy.database.entity.Comment;
 import by.itacademy.service.service.BookService;
 import by.itacademy.service.service.UserService;
-import lombok.AllArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;

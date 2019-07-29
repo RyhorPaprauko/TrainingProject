@@ -81,7 +81,7 @@ public class BookController {
             bookDto.setImage(ImageLoader.load(file));
         }
 
-        return "redirect:/book/" +
-                bookService.updateBook(bookDto).getId();
+        return "redirect:/book/"
+                + bookService.updateBook(bookDto).getId();
     }
 }

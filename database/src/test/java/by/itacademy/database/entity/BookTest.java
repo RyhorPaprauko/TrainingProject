@@ -27,7 +27,14 @@ public class BookTest extends BaseTest {
                 .build();
 
         bookRepository.save(book);
-        assertNotNull(bookRepository.getOne(book.getId()));
+        Book savedBook = bookRepository.getOne(book.getId());
+        assertNotNull(savedBook);
+        assertThat(savedBook, equalTo(book));
+        assertThat(savedBook.getName(), equalTo(book.getName()));
+        assertThat(savedBook.getAbout(), equalTo(book.getAbout()));
+        assertThat(savedBook.getPrice(), equalTo(book.getPrice()));
+        assertThat(savedBook.getGenre(), equalTo(book.getGenre()));
+        assertThat(savedBook.getImage(), equalTo(book.getImage()));
     }
 
     @Test

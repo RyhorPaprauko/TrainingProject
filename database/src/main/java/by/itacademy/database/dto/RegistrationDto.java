@@ -1,12 +1,8 @@
 package by.itacademy.database.dto;
 
-import by.itacademy.database.entity.Contacts;
 import by.itacademy.database.validator.FieldMatch;
 import by.itacademy.database.validator.UniqueLogin;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

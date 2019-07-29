@@ -9,6 +9,6 @@ import org.mapstruct.Mapping;
 public interface BookingMapper {
 
     @Mapping(target = "totalPrice", expression = "java(booking.getTotalPrice())")
-    @Mapping(target = "username",source = "booking.user.login")
+    @Mapping(target = "username", source = "booking.user.login")
     BookingDto toDto(Booking booking);
 }
